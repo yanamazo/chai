@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Segments Overview</title>
+    <!-- Link to your external CSS file -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Segments Overview</h1>
+    <div class="main">
+      <% data.records.forEach(record => { %>
+      <!-- Display headline -->
+      <h6
+        class="headline"
+        onclick="toggleSegments('<%= record.fields.Headlines %>')"
+      >
+        <%= record.fields.Headlines %>
+        <span id="segmentCount_<%= record.fields.Headlines %>"></span>
+      </h6>
+
+      <!-- Display segments under the headline -->
+      <div
+        class="segments"
+        id="segments_<%= record.fields.Headlines %>"
+        style="display: none"
+      >
+        <% let verifiedCount = 0; %>
+        <% let nonVerifiedCount = 0; %>
+        <% if (record.fields.verified && record.fields.verified.length > 0) { %>
+        <p>Verified сегменты:</p>
+        <ul>
+          <% record.fields.verified.forEach(segment => { %>
+          <li><%- segment %></li>
+          <% }); %>
+        </ul>
+        <% verifiedCount = record.fields.verified.length; %>
+        <% } else if (
+          record.fields.non_verified &&
+          record.fields.non_verified.length > 0
+        ) { %>
+        <p>Non-Verified сегменты:</p>
+        <ul>
+          <% record.fields.non_verified.forEach(segment => { %>
+          <li><%- segment %></li>
+          <% }); %>
+        </ul>
+        <% nonVerifiedCount = record.fields.non_verified.length; %>
+        <% } else { %>
+        <p>Нет сегментов</p>
+        <% } %>
+        <% if (verifiedCount > 0 || nonVerifiedCount > 0) { %>
+        <p>
+          Verified сегменты: <%= verifiedCount %>, Non-Verified сегменты: <%=
+          nonVerifiedCount %>
+        </p>
+        <% } %>
+      </div>
+      <% }); %>
+    </div>
+
+    <script>
+      function toggleSegments(headline) {
+        const segmentsDiv = document.getElementById("segments_" + headline);
+        segmentsDiv.style.display =
+          segmentsDiv.style.display === "none" ? "block" : "none";
+      }
+    </script>
+  </body>
+</html>
