@@ -35,11 +35,17 @@
         <% if (record.fields.verified && record.fields.verified.length > 0) { %>
         <p>Verified сегменты:</p>
         <ul>
-          <% record.fields.verified.forEach(segment => { %>
-          <li><%- segment %></li>
+          <% record.fields.verified.forEach((segment, index) => { %>
+            <li>
+              <%- segment %>,
+              <a href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%- record.fields.recId_segment[index] %>" target="_blank">
+                <%- record.fields.segment_name_txt[index] %>
+              </a>
+            </li>
           <% }); %>
         </ul>
         <% verifiedCount = record.fields.verified.length; %>
+        <% nonVerifiedCount = record.fields.non_verified ? record.fields.non_verified.length : 0 ; %>
         <% } else if (
           record.fields.non_verified &&
           record.fields.non_verified.length > 0
