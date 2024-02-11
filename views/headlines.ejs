@@ -32,6 +32,10 @@
       >
         <% let verifiedCount = 0; %>
         <% let nonVerifiedCount = 0; %>
+        <% let rewriteCount = 0; %>
+        <% verifiedCount = record.fields.verified ? record.fields.verified.length : 0 ; %>
+        <% nonVerifiedCount = record.fields.non_verified ? record.fields.non_verified.length : 0 ; %>
+        <% rewriteCount = record.fields.rewrite ? record.fields.rewrite.length : 0 ; %>
         <% if (record.fields.verified && record.fields.verified.length > 0) { %>
         <p>Verified сегменты:</p>
         <ul>
@@ -44,8 +48,22 @@
             </li>
           <% }); %>
         </ul>
-        <% verifiedCount = record.fields.verified.length; %>
-        <% nonVerifiedCount = record.fields.non_verified ? record.fields.non_verified.length : 0 ; %>
+        <% } else if (
+          record.fields.rewrite &&
+          record.fields.rewrite.length > 0
+        ) { %>
+          <p>Rewrite сегменты:</p>
+        <ul>
+          <% record.fields.rewrite.forEach((segment, index) => { %>
+            <li>
+              <%- segment %>,
+              <a href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%- record.fields.recId_segment[index] %>" target="_blank">
+                <%- record.fields.segment_name_txt[index] %>
+              </a>
+            </li>
+          <% }); %>
+        </ul>
+        <% rewriteCount = record.fields.rewrite.length; %>
         <% } else if (
           record.fields.non_verified &&
           record.fields.non_verified.length > 0
@@ -65,10 +83,11 @@
         <% } else { %>
         <p>Нет сегментов</p>
         <% } %>
-        <% if (verifiedCount > 0 || nonVerifiedCount > 0) { %>
+        <% if (verifiedCount > 0 || rewriteCount > 0 || nonVerifiedCount > 0) { %>
         <p>
-          Verified сегменты: <%= verifiedCount %>, Non-Verified сегменты: <%=
-          nonVerifiedCount %>
+          Verified сегменты: <%= verifiedCount %>, 
+          Rewrite сегменты: <%= rewriteCount %>,
+          Non-Verified сегменты: <%= nonVerifiedCount %>
         </p>
         <% } %>
       </div>
