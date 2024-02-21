@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="cnt">
     <h1>Segments Overview</h1>
     <% data.records.forEach(record => { %>
     <!-- Display headline -->
@@ -131,7 +132,7 @@
       </div>
     </div>
     <% }); %>
-
+  </div>
     <script>
       function toggleSegments(headline) {
         const segmentsDiv = document.getElementById("segments_" + headline);
@@ -139,5 +140,6 @@
           segmentsDiv.style.display === "none" ? "block" : "none";
       }
     </script>
+
   </body>
 </html>

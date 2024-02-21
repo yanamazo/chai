@@ -1,7 +1,3 @@
-body {
-    margin-left: 2%;
-}
-
 .headline {
     cursor: pointer;
     font-weight: bold;
@@ -16,15 +12,11 @@ body {
     margin-left: 20px;
 }
 
-li {
-    margin-bottom: 20px;
-    width: 60%;
-}
-
-ol {
-    padding-left: 0px;
-}
 
 .col-md-8 {
     padding-left: 0;
+}
+
+.cnt {
+    margin-left: 3%;
 }
