@@ -13,86 +13,124 @@
   </head>
   <body>
     <h1>Segments Overview</h1>
-    <div class="main">
-      <% data.records.forEach(record => { %>
-      <!-- Display headline -->
-      <h6
-        class="headline"
-        onclick="toggleSegments('<%= record.fields.Headlines %>')"
-      >
-        <%= record.fields.Headlines %>
-        <span id="segmentCount_<%= record.fields.Headlines %>"></span>
-      </h6>
+    <% data.records.forEach(record => { %>
+    <!-- Display headline -->
+    <h6
+      class="headline"
+      onclick="toggleSegments('<%= record.fields.Headlines %>')"
+    >
+      <%= record.fields.Headlines %>
+      <span id="segmentCount_<%= record.fields.Headlines %>"></span>
+    </h6>
 
-      <!-- Display segments under the headline -->
-      <div
-        class="segments"
-        id="segments_<%= record.fields.Headlines %>"
-        style="display: none"
-      >
-        <% let verifiedCount = 0; %>
-        <% let nonVerifiedCount = 0; %>
-        <% let rewriteCount = 0; %>
-        <% verifiedCount = record.fields.verified ? record.fields.verified.length : 0 ; %>
-        <% nonVerifiedCount = record.fields.non_verified ? record.fields.non_verified.length : 0 ; %>
-        <% rewriteCount = record.fields.rewrite ? record.fields.rewrite.length : 0 ; %>
-        <% if (record.fields.verified && record.fields.verified.length > 0) { %>
-        <p>Verified сегменты:</p>
-        <ul>
-          <% record.fields.verified.forEach((segment, index) => { %>
-            <li>
-              <%- segment %>,
-              <a href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%- record.fields.recId_segment[index] %>" target="_blank">
-                <%- record.fields.segment_name_txt[index] %>
-              </a>
-            </li>
-          <% }); %>
-        </ul>
-        <% } else if (
-          record.fields.rewrite &&
-          record.fields.rewrite.length > 0
-        ) { %>
-          <p>Rewrite сегменты:</p>
-        <ul>
+    <!-- Display segments under the headline -->
+    <div
+      class="segments"
+      id="segments_<%= record.fields.Headlines %>"
+      style="display: none"
+    >
+      <% let verifiedCount = 0; %> <% let nonVerifiedCount = 0; %> <% let
+      rewriteCount = 0; %> <% verifiedCount = record.fields.verified ?
+      record.fields.verified.length : 0 ; %> <% nonVerifiedCount =
+      record.fields.non_verified ? record.fields.non_verified.length : 0 ; %> <%
+      rewriteCount = record.fields.rewrite ? record.fields.rewrite.length : 0 ;
+      %>
+
+      <div class="row">
+        <% if (record.fields.verified && record.fields.verified.length > 0 ) {%> 
+        
+        <% record.fields.verified.forEach((segment, index) => { %>
+        <div class="col-md-8">
+          <p>Verified сегмент:</p>
+          <p>
+            <%= index + 1 %>. <%= segment %>,
+            <a
+              href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.fields.recId_segment[index] %>"
+              target="_blank"
+            >
+              <%= record.fields.segment_name_txt[index] %>
+            </a>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <% let recId = record.fields.recId_segment[index]; 
+          if (content.records && content.records.length > 0) { 
+            filtered = content.records.filter(obj => obj.fields.recId === recId) }%>
+          <% console.log(filtered[0]) %>
+          <% if (filtered[0].fields.pictures && filtered[0].fields.pictures.length > 0) { %>
+            <% filtered[0].fields.pictures.forEach(picture => { %>
+            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
+        <% }); %>
+            <% } %>
+        </div>
+        <% }); %> <% } else if (record.fields.rewrite &&
+        record.fields.rewrite.length > 0) { %>
+        <div class="col-md-8">
+          <p>Rewrite сегмент:</p>
           <% record.fields.rewrite.forEach((segment, index) => { %>
-            <li>
-              <%- segment %>,
-              <a href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%- record.fields.recId_segment[index] %>" target="_blank">
-                <%- record.fields.segment_name_txt[index] %>
-              </a>
-            </li>
-          <% }); %>
-        </ul>
-        <% rewriteCount = record.fields.rewrite.length; %>
-        <% } else if (
-          record.fields.non_verified &&
-          record.fields.non_verified.length > 0
-        ) { %>
-        <p>Non-Verified сегменты:</p>
-        <ul>
+          <p>
+            <%= index + 1 %>. <%= segment %>,
+            <a
+              href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.fields.recId_segment[index] %>"
+              target="_blank"
+            >
+              <%= record.fields.segment_name_txt[index] %>
+            </a>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <% let recId = record.fields.recId_segment[index]; 
+          if (content.records && content.records.length > 0) { 
+            filtered = content.records.filter(obj => obj.fields.recId === recId) }%>
+          <% console.log(filtered[0]) %>
+          <% if (filtered[0].fields.pictures && filtered[0].fields.pictures.length > 0) { %>
+            <% filtered[0].fields.pictures.forEach(picture => { %>
+            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
+        <% }); %>
+            <% } %>
+        </div>
+        <% }); %>
+        <% rewriteCount = record.fields.rewrite.length; %> <% } else if
+        (record.fields.non_verified && record.fields.non_verified.length > 0) {
+        %>
+        <div class="col-md-8">
+          <p>Non-Verified сегмент:</p>
           <% record.fields.non_verified.forEach((segment, index) => { %>
-            <li>
-              <%- segment %>,
-              <a href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%- record.fields.recId_segment[index] %>" target="_blank">
-                <%- record.fields.segment_name_txt[index] %>
-              </a>
-            </li>
-          <% }); %>
-        </ul>
-        <% nonVerifiedCount = record.fields.non_verified.length; %>
-        <% } else { %>
+          <p>
+            <%= index + 1 %>. <%= segment %>,
+            <a
+              href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.fields.recId_segment[index] %>"
+              target="_blank"
+            >
+              <%= record.fields.segment_name_txt[index] %>
+            </a>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <% let recId = record.fields.recId_segment[index]; 
+          if (content.records && content.records.length > 0) { 
+            filtered = content.records.filter(obj => obj.fields.recId === recId) }%>
+          <% console.log(filtered[0]) %>
+          <% if (filtered[0].fields.pictures && filtered[0].fields.pictures.length > 0) { %>
+            <% filtered[0].fields.pictures.forEach(picture => { %>
+            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
+        <% }); %>
+            <% } %>
+        </div>
+        <% }); %>
+        <% nonVerifiedCount = record.fields.non_verified.length; %> <% } else {
+        %>
         <p>Нет сегментов</p>
-        <% } %>
-        <% if (verifiedCount > 0 || rewriteCount > 0 || nonVerifiedCount > 0) { %>
+        <% } %> <% if (verifiedCount > 0 || rewriteCount > 0 || nonVerifiedCount
+        > 0) { %>
         <p>
-          Verified сегменты: <%= verifiedCount %>, 
-          Rewrite сегменты: <%= rewriteCount %>,
-          Non-Verified сегменты: <%= nonVerifiedCount %>
+          Verified сегменты: <%= verifiedCount %>, Rewrite сегменты: <%=
+          rewriteCount %>, Non-Verified сегменты: <%= nonVerifiedCount %>
         </p>
         <% } %>
       </div>
-      <% }); %>
     </div>
+    <% }); %>
 
     <script>
       function toggleSegments(headline) {

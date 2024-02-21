@@ -15,8 +15,10 @@
     <h1>Articles</h1>
     <div class="main">
       <% articles.forEach(article => { %>
-      <a href="<%= article.href %>"><%= article.name %></a><br />
+      <a href="<%= article.href %>"><%= article.name %></a><br>
+      <!-- <button class="btn btn-primary btn-sm pdf-btn" data-article-href="<%= article.href %>">PDF</button><br> -->
       <% }); %>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>

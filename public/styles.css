@@ -1,6 +1,5 @@
-
-.main {
-    margin-left: 3%;
+body {
+    margin-left: 60px;
 }
 
 .headline {
@@ -20,4 +19,12 @@
 li {
     margin-bottom: 20px;
     width: 60%;
+}
+
+ol {
+    padding-left: 0px;
+}
+
+.col-md-8 {
+    padding-left: 0;
 }
