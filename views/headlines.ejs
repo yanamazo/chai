@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="cnt">
+    <div class="main">
     <h1>Segments Overview</h1>
     <% data.records.forEach(record => { %>
     <!-- Display headline -->
@@ -57,7 +57,6 @@
           <% let recId = record.fields.recId_segment[index]; 
           if (content.records && content.records.length > 0) { 
             filtered = content.records.filter(obj => obj.fields.recId === recId) }%>
-          <% console.log(filtered[0]) %>
           <% if (filtered[0].fields.pictures && filtered[0].fields.pictures.length > 0) { %>
             <% filtered[0].fields.pictures.forEach(picture => { %>
             <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
