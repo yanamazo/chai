@@ -42,31 +42,29 @@
         
         <% record.fields.verified.forEach((segment, index) => { %>
         <div class="col-md-8">
-          <p>Verified сегмент:</p>
           <p>
             <%= index + 1 %>. <%= segment %>,
             <a
               href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.fields.recId_segment[index] %>"
               target="_blank"
             >
-              <%= record.fields.segment_name_txt[index] %>
+              <%= record.fields.segment_name_txt[index] %> {verified}
             </a>
           </p>
-        </div>
-        <div class="col-md-4">
           <% let recId = record.fields.recId_segment[index]; 
           if (content.records && content.records.length > 0) { 
             filtered = content.records.filter(obj => obj.fields.recId === recId) }%>
           <% if (filtered[0].fields.pictures && filtered[0].fields.pictures.length > 0) { %>
             <% filtered[0].fields.pictures.forEach(picture => { %>
-            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
+            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" class="leftimg" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
         <% }); %>
             <% } %>
+        </div>
+        <div class="col-md-4">
         </div>
         <% }); %> <% } else if (record.fields.rewrite &&
         record.fields.rewrite.length > 0) { %>
         <div class="col-md-8">
-          <p>Rewrite сегмент:</p>
           <% record.fields.rewrite.forEach((segment, index) => { %>
           <p>
             <%= index + 1 %>. <%= segment %>,
@@ -74,27 +72,26 @@
               href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.fields.recId_segment[index] %>"
               target="_blank"
             >
-              <%= record.fields.segment_name_txt[index] %>
+              <%= record.fields.segment_name_txt[index] %> {rewrite}
             </a>
           </p>
-        </div>
-        <div class="col-md-4">
           <% let recId = record.fields.recId_segment[index]; 
           if (content.records && content.records.length > 0) { 
             filtered = content.records.filter(obj => obj.fields.recId === recId) }%>
           <% console.log(filtered[0]) %>
           <% if (filtered[0].fields.pictures && filtered[0].fields.pictures.length > 0) { %>
             <% filtered[0].fields.pictures.forEach(picture => { %>
-            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
+            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" class="leftimg" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
         <% }); %>
             <% } %>
+        </div>
+        <div class="col-md-4">
         </div>
         <% }); %>
         <% rewriteCount = record.fields.rewrite.length; %> <% } else if
         (record.fields.non_verified && record.fields.non_verified.length > 0) {
         %>
         <div class="col-md-8">
-          <p>Non-Verified сегмент:</p>
           <% record.fields.non_verified.forEach((segment, index) => { %>
           <p>
             <%= index + 1 %>. <%= segment %>,
@@ -102,20 +99,20 @@
               href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.fields.recId_segment[index] %>"
               target="_blank"
             >
-              <%= record.fields.segment_name_txt[index] %>
+              <%= record.fields.segment_name_txt[index] %> {raw}
             </a>
           </p>
-        </div>
-        <div class="col-md-4">
           <% let recId = record.fields.recId_segment[index]; 
           if (content.records && content.records.length > 0) { 
             filtered = content.records.filter(obj => obj.fields.recId === recId) }%>
           <% console.log(filtered[0]) %>
           <% if (filtered[0].fields.pictures && filtered[0].fields.pictures.length > 0) { %>
             <% filtered[0].fields.pictures.forEach(picture => { %>
-            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" width="300" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
+            <a href="<%= picture.url %>" target="_blank"><img src="<%= picture.url %>" class="leftimg" width="300" alt="<%= picture.alt %>" title="<%= record.fields.segment_name_txt[index] %>"/></a>
         <% }); %>
             <% } %>
+        </div>
+        <div class="col-md-4">
         </div>
         <% }); %>
         <% nonVerifiedCount = record.fields.non_verified.length; %> <% } else {
