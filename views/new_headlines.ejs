@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Headlines</title>
+  </head>
+
+  <body>
+    <div class="toc main">
+      <h1>Сегменты</h1>
+      <h6>Содержание</h6>
+      <% Object.keys(segmentGroups).forEach(headlines => { %>
+      <p class="toc-item"><a href="#<%= headlines %>"><%= headlines %></a></p>
+      <% }); %>
+    </div>
+    <div class="row main">
+      <% Object.keys(segmentGroups).forEach(headlines => { %>
+      <div class="col-md-8">
+        <br />
+        <h4 id="<%= headlines %>"><%= headlines %></h4>
+        <% segmentGroups[headlines].forEach((record, index) => { %>
+        <div class="inline">
+          <% if (record.fields.verified) { %> <%-
+          record.fields.verified %><a
+            href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.id %>"
+            ><%= record.fields.segment_name %> {verified}</a
+          >
+          <% } else if (record.fields.rewrite) { %> <%-
+          record.fields.rewrite %><a
+            href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.id %>"
+            ><%= record.fields.segment_name %> {rewrite}</a
+          >
+          <% } else if (record.fields.not_verified) { %> <%-
+          record.fields.not_verified %><a
+            href="https://airtable.com/appaAzKgj3wMGo5p1/tblXUxWPficSiWpyy/viwUEW9ZSlU3sqrMB/<%= record.id %>"
+            ><%= record.fields.segment_name %> {raw}</a
+          >
+          <% } %> <% if (record.fields.pictures && record.fields.pictures.length
+          > 0) { %> <% record.fields.pictures.forEach(picture => { %>
+          <br /><a
+            href="<%= picture.url %>"
+            title="<%= record.fields.segment_name %>"
+            target="_blank"
+          >
+            <img
+              src="<%= picture.url %>"
+              alt="<%= picture.filename %>"
+              width="300"
+            />
+          </a>
+          <% }); %> <% } %>
+        </div>
+        <% }); %>
+      </div>
+      <% }); %>
+    </div>
+  </body>
+</html>
